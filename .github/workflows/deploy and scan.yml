@@ -1,0 +1,35 @@
+name: Deploy Vulnerable Application and Scan ZAP           # workflow name
+
+on:
+  push:
+    branches:
+      - master
+jobs:
+  deploy-heroku:
+    name: Deploy Heroku
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "ariel-quintana-2023" #Must be unique in Heroku
+          heroku_email: "aquintana.focasoftware@gmail.com"
+          remote_branch: "master"
+          usedocker: true
+  zap_scan:
+    runs-on: ubuntu-latest
+    name: Scan ZAP website
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: master
+      - name: "ZAP API Scan ArielQuintana-Heroku"
+        uses: zaproxy/action-api-scan@v0.1.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          docker_name: 'owasp/zap2docker-stable'
+          target: 'https://ariel-quintana-2023-45a47e81fcf5.herokuapp.com/'
+          rules_file_name: '.zap/rules.tsv'
+          cmd_options: '-a'
