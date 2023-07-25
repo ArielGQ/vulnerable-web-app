@@ -26,10 +26,11 @@ jobs:
         with:
           ref: master
       - name: "ZAP API Scan ArielQuintana-Heroku"
-        uses: zaproxy/action-api-scan@v0.1.0
+        uses: zaproxy/action-api-scan@v0.3.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           docker_name: 'owasp/zap2docker-stable'
+          format: openapi
           target: 'https://ariel-quintana-2023-45a47e81fcf5.herokuapp.com/'
           rules_file_name: '.zap/rules.tsv'
           cmd_options: '-a'
