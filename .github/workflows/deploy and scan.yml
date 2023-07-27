@@ -6,26 +6,18 @@ on:
     branches:
       - master
 jobs:
-  # zap_scan:
-  #   name: Scan ZAP website
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: ZAP Scan
-  #       uses: zaproxy/action-api-scan@v0.3.1
-  #       with:
-  #         target: 'https://ariel-quintana-2023-45a47e81fcf5.herokuapp.com/'
-  # deploy-heroku:
-  #   name: Deploy Heroku
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
-  #       with:
-  #         heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-  #         heroku_app_name: "ariel-quintana-2023" #Must be unique in Heroku
-  #         heroku_email: "aquintana.focasoftware@gmail.com"
-  #         remote_branch: "master"
-  #         usedocker: true
+  deploy-heroku:
+    name: Deploy Heroku
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "ariel-quintana-2023" #Must be unique in Heroku
+          heroku_email: "aquintana.focasoftware@gmail.com"
+          remote_branch: "master"
+          usedocker: true
   zap_scan:
     runs-on: ubuntu-latest
     name: Scan ZAP website
