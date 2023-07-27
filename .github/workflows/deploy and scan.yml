@@ -6,14 +6,14 @@ on:
     branches:
       - master
 jobs:
-  zap_scan:
-    name: Scan ZAP website
-    runs-on: ubuntu-latest
-    steps:
-      - name: ZAP Scan
-        uses: zaproxy/action-api-scan@v0.3.1
-        with:
-          target: 'https://ariel-quintana-2023-45a47e81fcf5.herokuapp.com/'
+  # zap_scan:
+  #   name: Scan ZAP website
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: ZAP Scan
+  #       uses: zaproxy/action-api-scan@v0.3.1
+  #       with:
+  #         target: 'https://ariel-quintana-2023-45a47e81fcf5.herokuapp.com/'
   # deploy-heroku:
   #   name: Deploy Heroku
   #   runs-on: ubuntu-latest
@@ -26,20 +26,20 @@ jobs:
   #         heroku_email: "aquintana.focasoftware@gmail.com"
   #         remote_branch: "master"
   #         usedocker: true
-  # zap_scan:
-  #   runs-on: ubuntu-latest
-  #   name: Scan ZAP website
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v2
-  #       with:
-  #         ref: master
-  #     - name: "ZAP API Scan ArielQuintana-Heroku"
-  #       uses: zaproxy/action-api-scan@v0.3.1
-  #       with:
-  #         token: ${{ secrets.GITHUB_TOKEN }}
-  #         docker_name: 'owasp/zap2docker-stable'
-  #         format: openapi
-  #         target: 'https://ariel-quintana-2023-45a47e81fcf5.herokuapp.com/'
-  #         rules_file_name: '.zap/rules.tsv'
-  #         cmd_options: '-a'
+  zap_scan:
+    runs-on: ubuntu-latest
+    name: Scan ZAP website
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: master
+      - name: "ZAP API Scan ArielQuintana-Heroku"
+        uses: zaproxy/action-api-scan@v0.3.1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          docker_name: 'owasp/zap2docker-stable'
+          format: openapi
+          target: 'https://ariel-quintana-2023-45a47e81fcf5.herokuapp.com/'
+          rules_file_name: '.zap/rules.tsv'
+          cmd_options: '-a'
